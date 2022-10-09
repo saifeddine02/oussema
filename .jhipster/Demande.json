@@ -1,0 +1,35 @@
+{
+  "applications": "*",
+  "changelogDate": "20221008015051",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "demande",
+  "fields": [
+    {
+      "fieldName": "startDemande",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "endDemande",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "statusDemande",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Demande",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "userSopra",
+      "otherEntityRelationshipName": "demandes",
+      "relationshipName": "userSopra",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="demandeConge">
+      <h2 data-cy="demandeCongeDetailsHeading"><span jhiTranslate="staffingApp.demandeConge.detail.title">Demande Conge</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ demandeConge.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.demandeConge.creationDate">Creation Date</span></dt>
+        <dd>
+          <span>{{ demandeConge.creationDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.demandeConge.avisTl">Avis Tl</span></dt>
+        <dd>
+          <span>{{ demandeConge.avisTl }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.demandeConge.statusDemande">Status Demande</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'staffingApp.StatusDemande.' + demandeConge.statusDemande }}">{{ demandeConge.statusDemande }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.demandeConge.dateDebutConge">Date Debut Conge</span></dt>
+        <dd>
+          <span>{{ demandeConge.dateDebutConge | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.demandeConge.dateFinConge">Date Fin Conge</span></dt>
+        <dd>
+          <span>{{ demandeConge.dateFinConge | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.demandeConge.nombreJour">Nombre Jour</span></dt>
+        <dd>
+          <span>{{ demandeConge.nombreJour }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/demande-conge', demandeConge.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

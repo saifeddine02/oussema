@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="equipe">
+      <h2 data-cy="equipeDetailsHeading"><span jhiTranslate="staffingApp.equipe.detail.title">Equipe</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ equipe.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.equipe.nomEquipe">Nom Equipe</span></dt>
+        <dd>
+          <span>{{ equipe.nomEquipe }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.equipe.equipeuser">Equipeuser</span></dt>
+        <dd>
+          <span *ngFor="let equipeuser of equipe.equipeusers; let last = last">
+            <a [routerLink]="['/user-sopra', equipeuser.id, 'view']">{{ equipeuser.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/equipe', equipe.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

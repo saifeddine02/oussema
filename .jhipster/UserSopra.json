@@ -1,0 +1,80 @@
+{
+  "applications": "*",
+  "changelogDate": "20221008015046",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_sopra",
+  "fields": [
+    {
+      "fieldName": "nomUser",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenomUser",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "emailUser",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "matriculeUser",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "disponibiliteUser",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "userRolesSopra",
+      "fieldType": "UserRolesSopra",
+      "fieldValues": "COLLABORATEUR,CHEF_DE_PROJET,MANAGER,ADMINISTRATEUR"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "UserSopra",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "responsable",
+      "otherEntityRelationshipName": "responsable",
+      "ownerSide": true,
+      "relationshipName": "responsable",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "competance",
+      "otherEntityRelationshipName": "userSopra",
+      "relationshipName": "competances",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "demande",
+      "otherEntityRelationshipName": "userSopra",
+      "relationshipName": "demandes",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "equipe",
+      "otherEntityRelationshipName": "equipeuser",
+      "ownerSide": false,
+      "relationshipName": "usersmembers",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "projet",
+      "otherEntityRelationshipName": "projectMenbers",
+      "ownerSide": false,
+      "relationshipName": "usermembers",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

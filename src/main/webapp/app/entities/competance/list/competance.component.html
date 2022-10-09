@@ -1,0 +1,147 @@
+<div>
+  <h2 id="page-heading" data-cy="CompetanceHeading">
+    <span jhiTranslate="staffingApp.competance.home.title">Competances</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="staffingApp.competance.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-competance"
+        [routerLink]="['/competance/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="staffingApp.competance.home.createLabel"> Créer un nouveau Competance </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="competances?.length === 0">
+    <span jhiTranslate="staffingApp.competance.home.notFound">Aucun Competance trouvé</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="competances && competances.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nomCompetance">
+            <div class="d-flex">
+              <span jhiTranslate="staffingApp.competance.nomCompetance">Nom Competance</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="dureeCompetance">
+            <div class="d-flex">
+              <span jhiTranslate="staffingApp.competance.dureeCompetance">Duree Competance</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="niveauCompetance">
+            <div class="d-flex">
+              <span jhiTranslate="staffingApp.competance.niveauCompetance">Niveau Competance</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="image">
+            <div class="d-flex">
+              <span jhiTranslate="staffingApp.competance.image">Image</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="userSopra.id">
+            <div class="d-flex">
+              <span jhiTranslate="staffingApp.competance.userSopra">User Sopra</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let competance of competances; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/competance', competance.id, 'view']">{{ competance.id }}</a>
+          </td>
+          <td>{{ competance.nomCompetance }}</td>
+          <td>{{ competance.dureeCompetance }}</td>
+          <td>{{ competance.niveauCompetance }}</td>
+          <td>
+            <a *ngIf="competance.image" (click)="openFile(competance.image, competance.imageContentType)">
+              <img
+                [src]="'data:' + competance.imageContentType + ';base64,' + competance.image"
+                style="max-height: 30px"
+                alt="competance image"
+              />
+            </a>
+            <span *ngIf="competance.image">{{ competance.imageContentType }}, {{ byteSize(competance.image) }}</span>
+          </td>
+          <td>
+            <div *ngIf="competance.userSopra">
+              <a [routerLink]="['/user-sopra', competance.userSopra.id, 'view']">{{ competance.userSopra.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/competance', competance.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/competance', competance.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+              </button>
+
+              <button type="submit" (click)="delete(competance)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="competances && competances.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

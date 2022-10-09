@@ -1,0 +1,52 @@
+{
+  "applications": "*",
+  "changelogDate": "20221008015049",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "projet",
+  "fields": [
+    {
+      "fieldName": "nomProjet",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paysProjet",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regionProjet",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateDebut",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "nombreRessource",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "dateFin",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "competanceDemander",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Projet",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "userSopra",
+      "otherEntityRelationshipName": "usermembers",
+      "ownerSide": true,
+      "relationshipName": "projectMenbers",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

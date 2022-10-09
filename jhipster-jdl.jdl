@@ -1,0 +1,77 @@
+
+entity UserSopra {
+	nomUser String
+    prenomUser String
+    emailUser String
+    matriculeUser String
+    disponibiliteUser Boolean
+    image ImageBlob
+    userRolesSopra  UserRolesSopra
+}
+
+entity Equipe {
+	nomEquipe String
+}
+entity DemandeConge {
+	creationDate Instant,
+	avisTl Boolean,
+	statusDemande StatusDemande,
+	dateDebutConge Instant,
+    dateFinConge Instant,
+	nombreJour Integer
+}
+entity Projet {
+	nomProjet String 
+    paysProjet String
+    regionProjet String
+    dateDebut Instant
+    nombreRessource Integer
+    dateFin Instant
+    competanceDemander String
+}
+entity Competance {
+	nomCompetance String
+    dureeCompetance Integer
+    niveauCompetance Integer
+    image ImageBlob
+}
+entity Demande {
+	startDemande Instant,
+	endDemande Instant,
+	statusDemande Instant,
+}
+
+entity Responsable {
+	nomResponsable String,
+	prenomResponsable String,
+}
+
+
+enum UserRolesSopra {
+    COLLABORATEUR, CHEF_DE_PROJET, MANAGER, ADMINISTRATEUR
+}
+enum StatusDemande {
+    ENCOURS, TRAITE
+}
+// defining multiple oneToOne relationships
+relationship OneToOne {
+    UserSopra{responsable} to Responsable{responsable},
+}
+relationship OneToMany {
+	UserSopra{competances} to Competance,
+    UserSopra{demandes} to Demande,
+}
+relationship ManyToMany{
+ Equipe{equipeuser} to UserSopra{usersmembers},
+  Projet{projectMenbers} to UserSopra{usermembers},
+}
+
+// Set pagination options.
+paginate all with infinite-scroll
+paginate all with pagination
+
+// Use a service layer with an interface for all entities.
+service all with serviceImpl
+
+// Use DTO's with the service layer with MapStruct.
+dto * with mapstruct

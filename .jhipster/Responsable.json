@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20221008015052",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "responsable",
+  "fields": [
+    {
+      "fieldName": "nomResponsable",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenomResponsable",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Responsable",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "userSopra",
+      "otherEntityRelationshipName": "responsable",
+      "ownerSide": false,
+      "relationshipName": "responsable",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

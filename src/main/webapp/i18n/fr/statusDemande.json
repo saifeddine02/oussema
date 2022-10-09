@@ -1,0 +1,9 @@
+{
+  "staffingApp": {
+    "StatusDemande": {
+      "null": "",
+      "ENCOURS": "ENCOURS",
+      "TRAITE": "TRAITE"
+    }
+  }
+}

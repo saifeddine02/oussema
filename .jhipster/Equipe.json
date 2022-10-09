@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20221008015047",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "equipe",
+  "fields": [
+    {
+      "fieldName": "nomEquipe",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Equipe",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "userSopra",
+      "otherEntityRelationshipName": "usersmembers",
+      "ownerSide": true,
+      "relationshipName": "equipeuser",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

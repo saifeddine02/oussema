@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="competance">
+      <h2 data-cy="competanceDetailsHeading"><span jhiTranslate="staffingApp.competance.detail.title">Competance</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ competance.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.competance.nomCompetance">Nom Competance</span></dt>
+        <dd>
+          <span>{{ competance.nomCompetance }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.competance.dureeCompetance">Duree Competance</span></dt>
+        <dd>
+          <span>{{ competance.dureeCompetance }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.competance.niveauCompetance">Niveau Competance</span></dt>
+        <dd>
+          <span>{{ competance.niveauCompetance }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.competance.image">Image</span></dt>
+        <dd>
+          <div *ngIf="competance.image">
+            <a (click)="openFile(competance.image, competance.imageContentType)">
+              <img
+                [src]="'data:' + competance.imageContentType + ';base64,' + competance.image"
+                style="max-width: 100%"
+                alt="competance image"
+              />
+            </a>
+            {{ competance.imageContentType }}, {{ byteSize(competance.image) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.competance.userSopra">User Sopra</span></dt>
+        <dd>
+          <div *ngIf="competance.userSopra">
+            <a [routerLink]="['/user-sopra', competance.userSopra.id, 'view']">{{ competance.userSopra.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/competance', competance.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

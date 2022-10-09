@@ -1,0 +1,153 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-user-sopra-heading" data-cy="UserSopraCreateUpdateHeading" jhiTranslate="staffingApp.userSopra.home.createOrEditLabel">
+        Créer ou éditer un User Sopra
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.userSopra.nomUser" for="field_nomUser">Nom User</label>
+          <input type="text" class="form-control" name="nomUser" id="field_nomUser" data-cy="nomUser" formControlName="nomUser" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.userSopra.prenomUser" for="field_prenomUser">Prenom User</label>
+          <input
+            type="text"
+            class="form-control"
+            name="prenomUser"
+            id="field_prenomUser"
+            data-cy="prenomUser"
+            formControlName="prenomUser"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.userSopra.emailUser" for="field_emailUser">Email User</label>
+          <input type="text" class="form-control" name="emailUser" id="field_emailUser" data-cy="emailUser" formControlName="emailUser" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.userSopra.matriculeUser" for="field_matriculeUser">Matricule User</label>
+          <input
+            type="text"
+            class="form-control"
+            name="matriculeUser"
+            id="field_matriculeUser"
+            data-cy="matriculeUser"
+            formControlName="matriculeUser"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.userSopra.disponibiliteUser" for="field_disponibiliteUser"
+            >Disponibilite User</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="disponibiliteUser"
+            id="field_disponibiliteUser"
+            data-cy="disponibiliteUser"
+            formControlName="disponibiliteUser"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.userSopra.image" for="field_image">Image</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imageContentType')!.value + ';base64,' + editForm.get('image')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image')!.value"
+              alt="userSopra image"
+            />
+            <div *ngIf="editForm.get('image')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('imageContentType')!.value }}, {{ byteSize(editForm.get('image')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image', 'imageContentType', 'file_image')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_image"
+              data-cy="image"
+              (change)="setFileData($event, 'image', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imageContentType"
+            id="field_imageContentType"
+            formControlName="imageContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.userSopra.userRolesSopra" for="field_userRolesSopra">User Roles Sopra</label>
+          <select
+            class="form-control"
+            name="userRolesSopra"
+            formControlName="userRolesSopra"
+            id="field_userRolesSopra"
+            data-cy="userRolesSopra"
+          >
+            <option [ngValue]="null">{{ 'staffingApp.UserRolesSopra.null' | translate }}</option>
+            <option *ngFor="let userRolesSopra of userRolesSopraValues" [value]="userRolesSopra">
+              {{ 'staffingApp.UserRolesSopra.' + userRolesSopra | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.userSopra.responsable" for="field_responsable">Responsable</label>
+          <select
+            class="form-control"
+            id="field_responsable"
+            data-cy="responsable"
+            name="responsable"
+            formControlName="responsable"
+            [compareWith]="compareResponsable"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="responsableOption" *ngFor="let responsableOption of responsablesCollection">
+              {{ responsableOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+{
+  "applications": "*",
+  "changelogDate": "20221008015048",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "demande_conge",
+  "fields": [
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "avisTl",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "statusDemande",
+      "fieldType": "StatusDemande",
+      "fieldValues": "ENCOURS,TRAITE"
+    },
+    {
+      "fieldName": "dateDebutConge",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "dateFinConge",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "nombreJour",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "DemandeConge",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

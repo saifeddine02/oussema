@@ -1,0 +1,35 @@
+{
+  "staffingApp": {
+    "userSopra": {
+      "home": {
+        "title": "UserSopras",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau User Sopra",
+        "createOrEditLabel": "Créer ou éditer un User Sopra",
+        "notFound": "Aucun User Sopra trouvé"
+      },
+      "created": "Un nouveau User Sopra a été créé avec l'identifiant {{ param }}",
+      "updated": "Le User Sopra avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le User Sopra avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le User Sopra {{ id }} ?"
+      },
+      "detail": {
+        "title": "User Sopra"
+      },
+      "id": "ID",
+      "nomUser": "Nom User",
+      "prenomUser": "Prenom User",
+      "emailUser": "Email User",
+      "matriculeUser": "Matricule User",
+      "disponibiliteUser": "Disponibilite User",
+      "image": "Image",
+      "userRolesSopra": "User Roles Sopra",
+      "responsable": "Responsable",
+      "competances": "Competances",
+      "demandes": "Demandes",
+      "usersmembers": "Usersmembers",
+      "usermembers": "Usermembers"
+    }
+  }
+}

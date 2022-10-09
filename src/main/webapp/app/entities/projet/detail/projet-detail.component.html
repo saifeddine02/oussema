@@ -1,0 +1,63 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="projet">
+      <h2 data-cy="projetDetailsHeading"><span jhiTranslate="staffingApp.projet.detail.title">Projet</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ projet.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.projet.nomProjet">Nom Projet</span></dt>
+        <dd>
+          <span>{{ projet.nomProjet }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.projet.paysProjet">Pays Projet</span></dt>
+        <dd>
+          <span>{{ projet.paysProjet }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.projet.regionProjet">Region Projet</span></dt>
+        <dd>
+          <span>{{ projet.regionProjet }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.projet.dateDebut">Date Debut</span></dt>
+        <dd>
+          <span>{{ projet.dateDebut | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.projet.nombreRessource">Nombre Ressource</span></dt>
+        <dd>
+          <span>{{ projet.nombreRessource }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.projet.dateFin">Date Fin</span></dt>
+        <dd>
+          <span>{{ projet.dateFin | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.projet.competanceDemander">Competance Demander</span></dt>
+        <dd>
+          <span>{{ projet.competanceDemander }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.projet.projectMenbers">Project Menbers</span></dt>
+        <dd>
+          <span *ngFor="let projectMenbers of projet.projectMenbers; let last = last">
+            <a [routerLink]="['/user-sopra', projectMenbers.id, 'view']">{{ projectMenbers.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/projet', projet.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

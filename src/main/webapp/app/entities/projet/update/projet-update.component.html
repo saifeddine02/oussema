@@ -1,0 +1,134 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-projet-heading" data-cy="ProjetCreateUpdateHeading" jhiTranslate="staffingApp.projet.home.createOrEditLabel">
+        Créer ou éditer un Projet
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.projet.nomProjet" for="field_nomProjet">Nom Projet</label>
+          <input type="text" class="form-control" name="nomProjet" id="field_nomProjet" data-cy="nomProjet" formControlName="nomProjet" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.projet.paysProjet" for="field_paysProjet">Pays Projet</label>
+          <input
+            type="text"
+            class="form-control"
+            name="paysProjet"
+            id="field_paysProjet"
+            data-cy="paysProjet"
+            formControlName="paysProjet"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.projet.regionProjet" for="field_regionProjet">Region Projet</label>
+          <input
+            type="text"
+            class="form-control"
+            name="regionProjet"
+            id="field_regionProjet"
+            data-cy="regionProjet"
+            formControlName="regionProjet"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.projet.dateDebut" for="field_dateDebut">Date Debut</label>
+          <div class="d-flex">
+            <input
+              id="field_dateDebut"
+              data-cy="dateDebut"
+              type="datetime-local"
+              class="form-control"
+              name="dateDebut"
+              formControlName="dateDebut"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.projet.nombreRessource" for="field_nombreRessource">Nombre Ressource</label>
+          <input
+            type="number"
+            class="form-control"
+            name="nombreRessource"
+            id="field_nombreRessource"
+            data-cy="nombreRessource"
+            formControlName="nombreRessource"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.projet.dateFin" for="field_dateFin">Date Fin</label>
+          <div class="d-flex">
+            <input
+              id="field_dateFin"
+              data-cy="dateFin"
+              type="datetime-local"
+              class="form-control"
+              name="dateFin"
+              formControlName="dateFin"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="staffingApp.projet.competanceDemander" for="field_competanceDemander"
+            >Competance Demander</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="competanceDemander"
+            id="field_competanceDemander"
+            data-cy="competanceDemander"
+            formControlName="competanceDemander"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="staffingApp.projet.projectMenbers" for="field_projectMenbers">Project Menbers</label>
+          <select
+            class="form-control"
+            id="field_projectMenbers"
+            data-cy="projectMenbers"
+            multiple
+            name="projectMenbers"
+            formControlName="projectMenbers"
+            [compareWith]="compareUserSopra"
+          >
+            <option [ngValue]="userSopraOption" *ngFor="let userSopraOption of userSoprasSharedCollection">{{ userSopraOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

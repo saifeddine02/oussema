@@ -1,0 +1,71 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="userSopra">
+      <h2 data-cy="userSopraDetailsHeading"><span jhiTranslate="staffingApp.userSopra.detail.title">User Sopra</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ userSopra.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.userSopra.nomUser">Nom User</span></dt>
+        <dd>
+          <span>{{ userSopra.nomUser }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.userSopra.prenomUser">Prenom User</span></dt>
+        <dd>
+          <span>{{ userSopra.prenomUser }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.userSopra.emailUser">Email User</span></dt>
+        <dd>
+          <span>{{ userSopra.emailUser }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.userSopra.matriculeUser">Matricule User</span></dt>
+        <dd>
+          <span>{{ userSopra.matriculeUser }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.userSopra.disponibiliteUser">Disponibilite User</span></dt>
+        <dd>
+          <span>{{ userSopra.disponibiliteUser }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.userSopra.image">Image</span></dt>
+        <dd>
+          <div *ngIf="userSopra.image">
+            <a (click)="openFile(userSopra.image, userSopra.imageContentType)">
+              <img
+                [src]="'data:' + userSopra.imageContentType + ';base64,' + userSopra.image"
+                style="max-width: 100%"
+                alt="userSopra image"
+              />
+            </a>
+            {{ userSopra.imageContentType }}, {{ byteSize(userSopra.image) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.userSopra.userRolesSopra">User Roles Sopra</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'staffingApp.UserRolesSopra.' + userSopra.userRolesSopra }}">{{ userSopra.userRolesSopra }}</span>
+        </dd>
+        <dt><span jhiTranslate="staffingApp.userSopra.responsable">Responsable</span></dt>
+        <dd>
+          <div *ngIf="userSopra.responsable">
+            <a [routerLink]="['/responsable', userSopra.responsable.id, 'view']">{{ userSopra.responsable.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/user-sopra', userSopra.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+      </button>
+    </div>
+  </div>
+</div>
